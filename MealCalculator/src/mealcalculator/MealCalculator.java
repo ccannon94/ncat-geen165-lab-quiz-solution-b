@@ -80,7 +80,15 @@ public class MealCalculator extends Application implements EventHandler{
             tipTextField.clear();
             totalBillLabel.setText("$0.00");
         }else{
+            double totalBill = 0.0;
             
+            double price = Double.parseDouble(priceTextField.getText().trim());
+            double discount = Double.parseDouble(discountTextField.getText().trim());
+            double tip = Double.parseDouble(tipTextField.getText().trim());
+            
+            totalBill = price * ((100-discount)/100) * ((100+tip)/100);
+            
+            totalBillLabel.setText("$"+totalBill);
         }
     }
     
