@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -82,13 +83,22 @@ public class MealCalculator extends Application implements EventHandler{
         }else{
             double totalBill = 0.0;
             
+            try{
             double price = Double.parseDouble(priceTextField.getText().trim());
             double discount = Double.parseDouble(discountTextField.getText().trim());
             double tip = Double.parseDouble(tipTextField.getText().trim());
             
             totalBill = price * ((100-discount)/100) * ((100+tip)/100);
             
+            if(price <= 0 || discount < 0 || tip < 0){
+                throw new Exception("Please enter positive numberical values");
+            }
+            
             totalBillLabel.setText("$"+totalBill);
+            }catch(Exception e){
+                Alert inputExceptionAlert = new Alert(Alert.AlertType.ERROR, "Please enter only positive numerical values");
+                inputExceptionAlert.showAndWait();
+            }
         }
     }
     
