@@ -23,6 +23,11 @@ import javafx.stage.Stage;
  */
 public class MealCalculator extends Application implements EventHandler{
 
+    private TextField priceTextField;
+    private TextField discountTextField;
+    private TextField tipTextField;
+    private Label totalBillLabel;
+    
     /**
      * @param args the command line arguments
      */
@@ -39,22 +44,24 @@ public class MealCalculator extends Application implements EventHandler{
         
         GridPane dataPane = new GridPane();
         dataPane.add(new Label("Menu Price:"), 0, 0);
-        TextField priceTextField = new TextField();
+        priceTextField = new TextField();
         dataPane.add(priceTextField, 1, 0);
         dataPane.add(new Label("Discount:"), 0, 1);
-        TextField discountTextField = new TextField();
+        discountTextField = new TextField();
         dataPane.add(discountTextField, 1, 1);
         dataPane.add(new Label("Tip %:"), 0, 2);
-        TextField tipTextField = new TextField();
+        tipTextField = new TextField();
         dataPane.add(tipTextField, 1, 2);
         dataPane.add(new Label("Total Bill:"), 0, 3);
-        Label totalBillLabel = new Label("$0.00");
+        totalBillLabel = new Label("$0.00");
         dataPane.add(totalBillLabel, 1, 3);
         pane.setCenter(dataPane);
         
         HBox commandPane = new HBox();
         Button resetButton = new Button("Reset");
+        resetButton.setOnAction(this);
         Button submitButton = new Button("Submit");
+        submitButton.setOnAction(this);
         commandPane.getChildren().addAll(resetButton, submitButton);
         pane.setBottom(commandPane);
         
@@ -65,7 +72,16 @@ public class MealCalculator extends Application implements EventHandler{
 
     @Override
     public void handle(Event event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Button pressed = (Button) event.getSource();
+        
+        if(pressed.getText().equals("Reset")){
+            priceTextField.clear();
+            discountTextField.clear();
+            tipTextField.clear();
+            totalBillLabel.setText("$0.00");
+        }else{
+            
+        }
     }
     
 }
